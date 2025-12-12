@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\UserModel;
+use App\Models\LoginTokenModel;
 use Config\Database;
 
 class AuthController extends BaseController
@@ -91,6 +92,176 @@ class AuthController extends BaseController
     {
         session()->destroy();
         return redirect()->to(site_url('login'));
+    }
+
+    public function sendPasswordlessLink()
+    {
+        $request = $this->request;
+
+        if ($request->getMethod() !== 'POST') {
+            return redirect()->to(
+                site_url('login') . '?error=' . urlencode('Invalid request method for passwordless login.')
+            );
+        }
+
+        // Email viene del formulario de "Enviarme link de login"
+        $email = trim($request->getPost('pwless_email') ?? '');
+
+        if ($email === '') {
+            return redirect()->to(
+                site_url('login') . '?error=' . urlencode('Please enter your email to receive the login link.')
+            );
+        }
+
+        $userModel = new UserModel();
+        $user = $userModel->where('email', $email)->first();
+
+        if (!$user) {
+            return redirect()->to(
+                site_url('login') . '?error=' . urlencode('User not found.')
+            );
+        }
+
+        if ($user['status'] === 'pending') {
+            return redirect()->to(
+                site_url('login') . '?error=' . urlencode('Your account is pending activation.')
+            );
+        }
+
+        if ($user['status'] === 'inactive') {
+            return redirect()->to(
+                site_url('login') . '?error=' . urlencode('Your account is inactive.')
+            );
+        }
+
+        // Crear token de un solo uso
+        $token      = bin2hex(random_bytes(32));          // 64 chars
+        $expiresAt  = date('Y-m-d H:i:s', time() + 30*60); // 30 minutos
+        $createdAt  = date('Y-m-d H:i:s');
+
+        $tokenModel = new LoginTokenModel();
+
+        // Opcional: limpiar tokens anteriores sin usar de este usuario
+        $tokenModel->where('user_id', $user['id'])
+                   ->where('used_at', null)
+                   ->delete();
+
+        // Guardar el nuevo token
+        $tokenModel->insert([
+            'user_id'    => $user['id'],
+            'token'      => $token,
+            'expires_at' => $expiresAt,
+            'used_at'    => null,
+            'created_at' => $createdAt,
+        ]);
+
+        // Construir el enlace completo
+        $loginLink = base_url('passwordless/login/' . $token);
+
+        $first_name = $user['first_name'];
+        $last_name  = $user['last_name'];
+
+        $subject = 'Aventones - Access link (no password needed)';
+        $html = "
+            <h2>Hello, {$first_name}!</h2>
+            <p>You requested a link to log into <b>Aventones</b> without a password.</p>
+            <p>Click the following link to access your account:</p>
+            <p><a href='{$loginLink}'>Log in to Aventones</a></p>
+            <p>If you cannot click, copy and paste this URL into your browser:<br>{$loginLink}</p>
+            <p><small>This link is valid for 30 minutes and can be used only once.</small></p>
+        ";
+        $text = "Hello, {$first_name}. Log in to Aventones with this link (valid 30 minutes, one-time use): {$loginLink}";
+
+        // Usar tu librería Mailer existente
+        $mailer = new \App\Libraries\Mailer();
+        $sent   = $mailer->send($user['email'], "{$first_name} {$last_name}", $subject, $html, $text);
+
+        if (!$sent) {
+            return redirect()->to(
+                site_url('login') . '?error=' . urlencode('Your login link could not be sent. Please try again later.')
+            );
+        }
+
+        return redirect()->to(
+            site_url('login') . '?success=' . urlencode('We have sent a login link to your email.')
+        );
+    }
+
+    // passwordless
+    public function loginWithToken(string $token)
+    {
+        $tokenModel = new LoginTokenModel();
+        $row        = $tokenModel->where('token', $token)->first();
+
+        if (!$row) {
+            return redirect()->to(
+                site_url('login') . '?error=' . urlencode('Invalid or already used login link.')
+            );
+        }
+
+        // Verificar expiración
+        if (strtotime($row['expires_at']) < time()) {
+            return redirect()->to(
+                site_url('login') . '?error=' . urlencode('The login link has expired.')
+            );
+        }
+
+        // Verificar si ya fue usado
+        if (!empty($row['used_at'])) {
+            return redirect()->to(
+                site_url('login') . '?error=' . urlencode('This login link has already been used.')
+            );
+        }
+
+        // Marcar el token como usado 
+        $tokenModel->update($row['id'], [
+            'used_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        // Buscar usuario
+        $userModel = new UserModel();
+        $user      = $userModel->find($row['user_id']);
+
+        if (!$user) {
+            return redirect()->to(
+                site_url('login') . '?error=' . urlencode('User not found for this login link.')
+            );
+        }
+
+        if ($user['status'] === 'pending') {
+            return redirect()->to(
+                site_url('login') . '?error=' . urlencode('Your account is pending activation.')
+            );
+        }
+
+        if ($user['status'] === 'inactive') {
+            return redirect()->to(
+                site_url('login') . '?error=' . urlencode('Your account is inactive.')
+            );
+        }
+
+        // Iniciar sesión 
+        session()->set([
+            'user_id'     => $user['id'],
+            'user_role'   => $user['role'],
+            'user_name'   => $user['first_name'] . ' ' . $user['last_name'],
+            'user_email'  => $user['email'],
+            'logged_in'   => true,
+        ]);
+
+        // Redirigir según rol
+        switch ($user['role']) {
+            case 'admin':
+                return redirect()->to('/admin/users');
+            case 'driver':
+                return redirect()->to(site_url('driver/my-rides'));
+            case 'passenger':
+                return redirect()->to(site_url('passenger/search-rides'));
+            default:
+                return redirect()->to(
+                    site_url('login') . '?error=' . urlencode('Unknown role.')
+                );
+        }
     }
 
     // ------------------- REGISTRO PASAJERO ----------------
