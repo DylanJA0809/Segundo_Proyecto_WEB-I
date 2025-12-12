@@ -1,0 +1,158 @@
+.wrap, .rides-container {
+  max-width: 1100px;
+  margin: 40px auto;
+  padding: 10px 20px;
+}
+
+h2 {
+  color: #e5e7eb;
+  margin-bottom: 16px;
+  font-size: 22px;
+  letter-spacing: .5px;
+}
+
+.new-ride-btn, .btn.primary {
+  display: inline-block;
+  background: #2563eb;
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 600;
+  border: 1px solid #2563eb;
+  transition: background 0.2s ease;
+}
+
+.new-ride-btn:hover, .btn.primary:hover {
+  background: #1d4ed8;
+}
+
+.card, .rides-table-container {
+  background: #111827;
+  border: 1px solid #1f2937;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, .25);
+  margin-top: 10px;
+}
+
+
+.rides-table, .table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid #1f2937;
+}
+
+.rides-table th, .rides-table td,
+.table th, .table td {
+  padding: 12px 14px;
+  text-align: left;
+  font-size: 14px;
+  color: #e5e7eb;
+  border-bottom: 1px solid #1f2937;
+}
+
+.rides-table th, .table th {
+  background: #0b1220;
+  color: #cbd5e1;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .3px;
+  font-size: 13px;
+}
+
+.rides-table tr:hover, .table tbody tr:hover {
+  background: #0f172a;
+}
+
+
+.actions a, .actions button {
+  font-size: 13px;
+  margin: 0 4px;
+}
+
+.btn {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #334155;
+  background: #0f172a;
+  color: #e5e7eb;
+  cursor: pointer;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+
+.btn:hover {
+  background: #1e293b;
+}
+
+.btn.danger {
+  background: transparent;
+  border-color: #b91c1c;
+  color: #fca5a5;
+}
+
+.btn.danger:hover {
+  background: #111827;
+}
+
+
+.msg {
+  margin: 10px 0;
+  padding: 10px 12px;
+  border-radius: 10px;
+  font-size: 14px;
+  border: 1px solid;
+}
+
+.msg.ok {
+  background: rgba(20,184,166,.1);
+  color: #14b8a6;
+  border-color: #115e59;
+}
+
+.msg.err {
+  background: rgba(248,113,113,.08);
+  color: #f87171;
+  border-color: #7f1d1d;
+}
+
+.footer {
+  text-align: center;
+  padding: 20px;
+  font-size: 14px;
+  color: #9ca3af;
+  background: #0f172a;
+  border-top: 1px solid #1f2937;
+  margin-top: 40px;
+}
+
+.footer a {
+  color: #93c5fd;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+
+@media (max-width: 768px) {
+  .rides-table th, .rides-table td {
+    font-size: 12px;
+
+    padding: 8px;
+
+  }
+
+  .new-ride-btn {
+    display: block;
+    text-align: center;
+    margin-bottom: 12px;
+  }
+}
+

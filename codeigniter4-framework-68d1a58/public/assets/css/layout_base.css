@@ -1,0 +1,118 @@
+:root{
+  --gap: 12px;
+  --radius: 10px;
+}
+*{ box-sizing: border-box; }
+img{ max-width: 100%; height: auto; }
+.hidden{ display: none !important; }
+
+.table-wrap{
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: var(--radius);
+}
+
+.rides-container,
+.bookings-container,
+.profile-container,
+.configuration-container{
+  width: min(100%, 1100px);
+  margin: 20px auto;
+  background: #fff;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.main-header{
+  background: #fff;
+  padding: 10px 16px;
+  border-bottom: 1px solid #ccc;
+}
+.logo-container{
+  display:flex; align-items:center; justify-content:center; gap:10px;
+}
+.logo-container .logo{ width:50px; height:auto; }
+.logo-container h1{ margin:0; font-size: 24px; letter-spacing:1px; }
+
+.nav-bar{
+  display:flex; flex-wrap:wrap; gap:12px; align-items:center; justify-content:center;
+  margin-top:10px; padding:10px 8px; background:#f9f9f9; border-top:1px solid #ccc;
+}
+.nav-bar a{
+  text-decoration:none; color:#444; padding:8px 12px; border-radius:8px;
+}
+.nav-bar a.active{ 
+    background:#4a90e2; 
+    color:#fff; 
+}
+
+.search-container{
+  margin-left:auto; display:flex; align-items:center; gap:10px; width:100%;
+  justify-content:flex-end;
+}
+.search-container input{
+  width:100%; padding:6px 10px; border:1px solid #ccc; border-radius:6px;
+}
+
+.user-menu{ 
+    position:relative; 
+    display:inline-block; 
+}
+
+.user-icon{ 
+    width:30px; 
+    height:30px; 
+    border-radius:50%; 
+}
+
+.user-dropdown{
+  display:none; position:absolute; right:0; top:calc(100% + 6px);
+  background:#fff; border:1px solid #000; min-width:160px; z-index:10;
+}
+.user-dropdown a{
+  display:block; padding:10px; text-decoration:none; color:#333;
+  border-bottom:1px solid #000;
+}
+.user-dropdown a:last-child{ 
+    border-bottom:none; 
+}
+
+.user-dropdown a:hover{ 
+    background:#f1f1f1; 
+}
+
+.user-menu:hover .user-dropdown{
+    display:flex; 
+    flex-direction:column; 
+}
+
+
+@media (max-width: 767.98px){
+  .nav-bar{ gap:10px; }
+  .search-container{ width:100%; margin:0; }
+  .search-container input{ width:100%; }
+  .rides-container,
+  .bookings-container,
+  .profile-container,
+  .configuration-container{
+    padding:16px;
+  }
+}
+
+@media (min-width: 768px){        
+  .search-container{ width:auto; }
+  .search-container input{ width:280px; }
+}
+
+@media (min-width: 1024px){       
+  .search-container input{ width:300px; }
+}
+
+@media (min-width: 1440px){      
+  .bookings-container,
+  .profile-container,
+  .configuration-container{
+    width: min(100%, 1100px);
+    padding:24px;
+  }
+}
