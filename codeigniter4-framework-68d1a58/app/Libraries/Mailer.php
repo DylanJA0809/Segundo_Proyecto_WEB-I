@@ -49,10 +49,20 @@ class Mailer
             $mail->Body    = $html;
             $mail->AltBody = $text;
 
+                $mail->SMTPDebug = 0; // 0 = off, 1 = client messages, 2 = client and server messages
+                $mail->Debugoutput = function ($str, $level) {
+                    echo "SMTP[$level]: $str\n";
+                };
+
             $mail->send();
             return true;
         } catch (Exception $e) {
-            log_message('error', 'Error al enviar correo: ' . $mail->ErrorInfo);
+            //log_message('error', 'Error al enviar correo: ' . $mail->ErrorInfo);
+            //return false;
+            echo "EXCEPTION: " . $e->getMessage() . PHP_EOL;
+            echo "ERRORINFO: " . $mail->ErrorInfo . PHP_EOL;
+            log_message('error', 'Mailer Exception: ' . $e->getMessage());
+            log_message('error', 'Mailer ErrorInfo: ' . $mail->ErrorInfo);
             return false;
         }
     }
