@@ -14,7 +14,6 @@
   <!-- CSS -->
   <link rel="stylesheet" href="<?= base_url('assets/css/estilos.css') ?>" />
   <link rel="stylesheet" href="<?= base_url('assets/css/estilo_nav_logo.css') ?>" />
-  <link rel="stylesheet" href="<?= base_url('assets/css/layout_base.css') ?>" />
   <link rel="stylesheet" href="<?= base_url('assets/css/estilos_Ride_Details.css') ?>" />
 
   <!-- JS -->
