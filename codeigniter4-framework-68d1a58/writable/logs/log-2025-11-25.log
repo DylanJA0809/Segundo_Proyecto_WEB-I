@@ -1,0 +1,66 @@
+CRITICAL - 2025-11-25 02:47:05 --> ErrorException: Undefined variable $carrera
+[Method: GET, Route: edit_careers]
+in APPPATH\Views\Views_Workshop6\editar_carreras.php on line 47.
+ 1 APPPATH\Views\Views_Workshop6\editar_carreras.php(47): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $carrera', 'C:\\xampp\\htdocs\\MVC_CI\\codeigniter4-framework-68d1a58\\app\\Views\\Views_Workshop6\\editar_carreras.php', 47)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\MVC_CI\\codeigniter4-framework-68d1a58\\app\\Views\\Views_Workshop6\\editar_carreras.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('Views_Workshop6/editar_carreras', [], true)
+ 5 APPPATH\Controllers\ControllerWorkshop6.php(65): view('Views_Workshop6/editar_carreras', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ControllerWorkshop6->edit_careers()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ControllerWorkshop6))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-25 02:47:09 --> ErrorException: Undefined variable $estudiante
+[Method: GET, Route: edit_students]
+in APPPATH\Views\Views_Workshop6\editar_estudiantes.php on line 53.
+ 1 APPPATH\Views\Views_Workshop6\editar_estudiantes.php(53): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $estudiante', 'C:\\xampp\\htdocs\\MVC_CI\\codeigniter4-framework-68d1a58\\app\\Views\\Views_Workshop6\\editar_estudiantes.php', 53)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\MVC_CI\\codeigniter4-framework-68d1a58\\app\\Views\\Views_Workshop6\\editar_estudiantes.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('Views_Workshop6/editar_estudiantes', [], true)
+ 5 APPPATH\Controllers\ControllerWorkshop6.php(139): view('Views_Workshop6/editar_estudiantes', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ControllerWorkshop6->edit_students()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ControllerWorkshop6))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-25 02:48:09 --> ErrorException: Undefined variable $estudiante
+[Method: GET, Route: edit_students]
+in APPPATH\Views\Views_Workshop6\editar_estudiantes.php on line 53.
+ 1 APPPATH\Views\Views_Workshop6\editar_estudiantes.php(53): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $estudiante', 'C:\\xampp\\htdocs\\MVC_CI\\codeigniter4-framework-68d1a58\\app\\Views\\Views_Workshop6\\editar_estudiantes.php', 53)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\MVC_CI\\codeigniter4-framework-68d1a58\\app\\Views\\Views_Workshop6\\editar_estudiantes.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('Views_Workshop6/editar_estudiantes', [], true)
+ 5 APPPATH\Controllers\ControllerWorkshop6.php(139): view('Views_Workshop6/editar_estudiantes', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ControllerWorkshop6->edit_students()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ControllerWorkshop6))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-25 02:52:38 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "Views_Workshop6/editar_carrera.php"
+[Method: GET, Route: edit_career/1]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(214): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('Views_Workshop6/editar_carrera.php')
+ 2 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('Views_Workshop6/editar_carrera', [], true)
+ 3 APPPATH\Controllers\ControllerWorkshop6.php(75): view('Views_Workshop6/editar_carrera', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ControllerWorkshop6->edit_career('1')
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ControllerWorkshop6))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-25 02:52:45 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "Views_Workshop6/editar_estudiante.php"
+[Method: GET, Route: edit_student/1]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(214): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('Views_Workshop6/editar_estudiante.php')
+ 2 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('Views_Workshop6/editar_estudiante', [], true)
+ 3 APPPATH\Controllers\ControllerWorkshop6.php(151): view('Views_Workshop6/editar_estudiante', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ControllerWorkshop6->edit_student('1')
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ControllerWorkshop6))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
