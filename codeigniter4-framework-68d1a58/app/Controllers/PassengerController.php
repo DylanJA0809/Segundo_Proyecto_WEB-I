@@ -6,6 +6,7 @@ use App\Controllers\BaseController;
 use App\Models\RideModel;
 use App\Models\ReservationModel;
 use App\Models\BookingModel;
+use App\Models\SearchLogModel;
 
 class PassengerController extends BaseController
 {
@@ -60,6 +61,23 @@ class PassengerController extends BaseController
             $to   !== '' ? $to   : null,
             $days
         );
+
+        // Log de búsqueda para Reporte Admin
+        if ($from !== '' || $to !== '') {
+            try {
+                $logModel = new \App\Models\SearchLogModel();
+
+                $logModel->insert([
+                    'user_id'       => (int) session('user_id'),
+                    'departure'     => $from !== '' ? $from : null,
+                    'arrival'       => $to   !== '' ? $to   : null,
+                    'results_count' => is_array($rows) ? count($rows) : 0,
+                ]);
+            } catch (\Throwable $e) {
+                
+            }
+        }
+
 
         // Adaptar al formato que espera JS
         $rides = array_map(function(array $r) {
