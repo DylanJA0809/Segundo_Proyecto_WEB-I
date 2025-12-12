@@ -242,5 +242,39 @@ class AdminController extends BaseController
             site_url('admin/users') . '?msg=' . urlencode("User status updated to {$newStatus}.")
         );
     }
+    
+    // Reporte de búsquedas
+    public function searchReport(){
+        $role = session()->get('user_role');
+        if ($role !== 'admin') {
+            return redirect()->to('/login');
+        }
+
+        $from = $this->request->getGet('from');
+        $to   = $this->request->getGet('to');
+
+        $logModel = new \App\Models\SearchLogModel();
+
+        $builder = $logModel
+            ->select('search_logs.*, users.first_name, users.last_name, users.email')
+            ->join('users', 'users.id = search_logs.user_id', 'left');
+
+        if (!empty($from)) {
+            $builder->where('search_logs.created_at >=', $from . ' 00:00:00');
+        }
+
+        if (!empty($to)) {
+            $builder->where('search_logs.created_at <=', $to . ' 23:59:59');
+        }
+
+        $logs = $builder->orderBy('search_logs.created_at', 'DESC')->findAll();
+
+        return view('admin/search_report', [
+            'logs' => $logs,
+            'from' => $from,
+            'to'   => $to,
+        ]);
+    }
+
 
 }
