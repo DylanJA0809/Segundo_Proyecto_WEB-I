@@ -1,14 +1,4 @@
 <?php
-/**
- * Vista: Admin · User Management
- *
- * Espera:
- * - $users  : array de usuarios (cada uno con id, first_name, last_name, email, role, status, phone, birth_date)
- * - $role   : filtro actual de rol (string o '')
- * - $status : filtro actual de status (string o '')
- * - $msg    : mensaje de éxito (opcional)
- * - $error  : mensaje de error (opcional)
- */
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -27,6 +17,9 @@
     </div>
     <nav class="nav-actions">
       <span class="who"><?= esc(session('user_name') ?? 'Admin') ?></span>
+      <a href="<?= site_url('admin/search-report') ?>" class="btn ghost sm">
+        Search Report
+      </a>
       <a class="btn ghost sm" href="<?= site_url('logout') ?>">Logout</a>
     </nav>
   </header>
