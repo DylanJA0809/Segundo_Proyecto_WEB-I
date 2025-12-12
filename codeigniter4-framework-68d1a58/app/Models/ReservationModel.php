@@ -71,4 +71,54 @@ class ReservationModel extends Model
 
         return ['ok' => true, 'reservation_id' => (int)$id];
     }
+
+    public function getPendingReservationsGroupedByDriver(int $minutes): array
+    {
+        $sql = "
+            SELECT
+                r.id            AS reservation_id,
+                r.ride_id,
+                r.created_at,
+                rd.driver_id,
+                u.email         AS driver_email,
+                u.first_name    AS driver_name,
+                rd.origin,
+                rd.destination
+            FROM reservations r
+            JOIN rides rd ON rd.id = r.ride_id
+            JOIN users u  ON u.id = rd.driver_id
+            WHERE r.status = 'pending'
+              AND r.created_at <= (NOW() - INTERVAL ? MINUTE)
+            ORDER BY rd.driver_id, r.created_at ASC
+        ";
+
+        $rows = $this->db->query($sql, [$minutes])->getResultArray();
+
+        if (empty($rows)) {
+            return [];
+        }
+
+        $drivers = [];
+        foreach ($rows as $row) {
+            $driverId = (int) $row['driver_id'];
+
+            if (!isset($drivers[$driverId])) {
+                $drivers[$driverId] = [
+                    'email'    => $row['driver_email'],
+                    'name'     => $row['driver_name'],
+                    'reservas' => [],
+                ];
+            }
+
+            $drivers[$driverId]['reservas'][] = [
+                'id'         => (int) $row['reservation_id'],
+                'ride_id'    => (int) $row['ride_id'],
+                'origin'     => $row['origin'],
+                'destination'=> $row['destination'],
+                'created_at' => $row['created_at'],
+            ];
+        }
+
+        return array_values($drivers);
+    }
 }
