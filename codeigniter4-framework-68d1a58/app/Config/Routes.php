@@ -21,6 +21,10 @@ $routes->post('login', 'AuthController::doLogin');
 $routes->get('logout', 'AuthController::logout');
 $routes->get('activate', 'AuthController::activate');
 
+// Passwordless Login
+$routes->post('passwordless/send-link', 'AuthController::sendPasswordlessLink');
+$routes->get('passwordless/login/(:segment)', 'AuthController::loginWithToken/$1');
+
 // Registro pasajero
 $routes->get('register', 'AuthController::registerUser');
 $routes->post('register', 'AuthController::doRegisterUser');
@@ -38,6 +42,7 @@ $routes->get('public-rides/search', 'RidesController::searchAjax');
 $routes->get('admin/users', 'AdminController::users');
 $routes->post('admin/users/create', 'AdminController::createAdmin');
 $routes->post('admin/users/change-status/(:num)', 'AdminController::changeUserStatus/$1');
+$routes->get('admin/search-report', 'AdminController::searchReport');
 
 // Rutas del driver
 $routes->get('driver/my-rides', 'DriverController::myRides');
@@ -76,3 +81,4 @@ $routes->post('profile/update', 'ProfileController::update');
 // API Bio (AJAX)
 $routes->get('profile/api/bio', 'ProfileController::apiGetBio');
 $routes->post('profile/api/bio', 'ProfileController::apiUpdateBio');
+
