@@ -32,7 +32,70 @@
         </form>
 
         <div id="login-message"></div>
+        <!-- Passwordless Login-->
+
+        <div style="margin-top: 2rem;">
+
+            <!-- Botón inicial -->
+            <button
+                type="button"
+                class="login-btn"
+                id="togglePasswordless"
+                style="width: 100%;"
+            >
+                Log in with a link
+            </button>
+
+            
+            <div
+                id="passwordlessBox"
+                style="display: none; margin-top: 1rem;"
+            >
+                <h3>Log in with a link</h3>
+
+                <p style="font-size: 0.9rem; color: #555;">
+                    Enter your email and we will send you a link to access without a password.
+                </p>
+
+                <form
+                    method="post"
+                    action="<?= site_url('passwordless/send-link') ?>"
+                    style="margin-top: 0.5rem;"
+                >
+                    <label for="pwless_email">Email</label>
+                    <input
+                        type="email"
+                        id="pwless_email"
+                        name="pwless_email"
+                        required
+                    >
+
+                    <button
+                        type="submit"
+                        class="login-btn"
+                        style="margin-top: 0.5rem;"
+                    >
+                        Send me the login link
+                    </button>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
+
+<script>
+document.getElementById('togglePasswordless').addEventListener('click', function () {
+    const box = document.getElementById('passwordlessBox');
+
+    if (box.style.display === 'none') {
+        box.style.display = 'block';
+        this.textContent = 'Hide login with link';
+    } else {
+        box.style.display = 'none';
+        this.textContent = 'Log in with a link';
+    }
+});
+</script>
+
 
 <?= $this->endSection() ?>
